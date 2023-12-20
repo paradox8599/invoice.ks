@@ -20,6 +20,8 @@
     "@keystone-6/auth": "^7.0.2",
     "@keystone-6/core": "^5.7.1",
     "@keystone-6/fields-document": "^7.0.0",
+    "@nextui-org/react": "^2.2.9",
+    "framer-motion": "^10.16.16",
     "graphql-yoga": "^5.0.2",
     "next": "^13.5.6",
     "react": "^18.2.0",
