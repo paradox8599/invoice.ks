@@ -17,3 +17,7 @@ export const GRAPHQL_PATH =
   process.env.NEXT_PUBLIC_GRAPHQL_PATH ?? "/api/graphql";
 
 export const GRAPHQL_ENDPOINT = new URL(GRAPHQL_PATH, SERVER_URL);
+
+export const GST_MULTIPLIER = parseFloat(
+  process.env.NEXT_PUBLIC_GST_MULTIPLIER || "0.1"
+);

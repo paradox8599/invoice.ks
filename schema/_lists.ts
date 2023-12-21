@@ -1,6 +1,18 @@
+import type { Lists } from ".keystone/types";
 import { User } from "./User";
-import { type Lists } from ".keystone/types";
+import { Client } from "./Client";
+import { Contract } from "./Contract";
+import { Invoice } from "./Invoice";
+import { Quote } from "./Quote";
+import { Service } from "./Service";
+import { ServiceType } from "./ServiceType";
 
 export const lists: Lists = {
   User,
+  Client,
+  Quote,
+  Contract,
+  Invoice,
+  Service,
+  ServiceType,
 };

@@ -22,6 +22,7 @@
     "@keystone-6/fields-document": "^7.0.0",
     "@nextui-org/react": "^2.2.9",
     "framer-motion": "^10.16.16",
+    "dinero.js": "^1.9.1",
     "graphql-yoga": "^5.0.2",
     "next": "^13.5.6",
     "react": "^18.2.0",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
+    "@types/dinero.js": "^1.9.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
