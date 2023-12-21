@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "nextks"
+app = "invoiceks"
 primary_region = "syd"
 
 [build]
@@ -15,8 +15,7 @@ DB_PROVIDER = "postgresql"
 [env]
 KS_PORT = "3000"
 NEXT_PUBLIC_GRAPHQL_PATH = "/api/graphql"
-NEXT_PUBLIC_SERVER_URL = "https://nextks.fly.dev"
-# DATABASE_URL = "" # secret
+NEXT_PUBLIC_SERVER_URL = "https://invoiceks.fly.dev"
 
 [http_service]
 internal_port = 3000
