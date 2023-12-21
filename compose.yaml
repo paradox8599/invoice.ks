@@ -1,5 +1,6 @@
 services:
   db:
+    platform: linux/amd64
     image: postgres:15
     ports:
       - 5434:5432
@@ -16,6 +17,7 @@ services:
           - invoiceks-db
 
   admin:
+    platform: linux/amd64
     build:
       dockerfile: Dockerfile.admin
       args:
