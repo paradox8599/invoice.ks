@@ -9,12 +9,38 @@ import {
 
 import type { Lists } from ".keystone/types";
 
-import { validateClient } from "../admin/helpers/validation";
+import { importServices, validateClient } from "../admin/helpers/hooks";
 
 export const Invoice: Lists.Invoice = list({
   access: allowAll,
+  hooks: {
+    async afterOperation({ context, inputData, item, operation }) {
+      if (operation === "create") {
+        // import services from existing contract
+        await importServices({
+          context,
+          fromCollection: "Contract",
+          toCollection: "Invoice",
+          fromId: inputData.contract?.connect?.id ?? void 0,
+          toId: item.id,
+        });
+      }
+    },
+  },
   fields: {
     name: text({ validation: { isRequired: true } }),
+    client: relationship({
+      ref: "Client.invoices",
+      hooks: { validateInput: validateClient },
+    }),
+    contract: relationship({
+      label: "From Contract",
+      ref: "Contract",
+      ui: {
+        createView: { fieldMode: "edit" },
+        itemView: { fieldMode: "read", fieldPosition: "sidebar" },
+      },
+    }),
     sentAt: timestamp({
       ui: {
         createView: { fieldMode: "hidden" },
@@ -24,10 +50,6 @@ export const Invoice: Lists.Invoice = list({
     paidAt: timestamp({ ui: { createView: { fieldMode: "hidden" } } }),
     displayDate: calendarDay({ ui: { createView: { fieldMode: "hidden" } } }),
 
-    client: relationship({
-      ref: "Client.invoices",
-      hooks: { validateInput: validateClient },
-    }),
     services: relationship({ ref: "Service.invoices", many: true }),
   },
 });

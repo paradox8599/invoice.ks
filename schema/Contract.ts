@@ -9,10 +9,24 @@ import {
 
 import type { Lists } from ".keystone/types";
 
-import { validateClient } from "../admin/helpers/validation";
+import { importServices, validateClient } from "../admin/helpers/hooks";
 
 export const Contract: Lists.Contract = list({
   access: allowAll,
+  hooks: {
+    async afterOperation({ context, inputData, item, operation }) {
+      if (operation === "create") {
+        // import services from existing quote
+        await importServices({
+          context,
+          fromCollection: "Quote",
+          toCollection: "Contract",
+          fromId: inputData.quote?.connect?.id ?? void 0,
+          toId: item.id,
+        });
+      }
+    },
+  },
   fields: {
     name: text({ validation: { isRequired: true } }),
     client: relationship({

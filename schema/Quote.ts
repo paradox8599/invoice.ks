@@ -11,7 +11,7 @@ import {
 import type { Lists } from ".keystone/types";
 
 import { Calc } from "../admin/helpers/money";
-import { validateClient } from "../admin/helpers/validation";
+import { validateClient } from "../admin/helpers/hooks";
 
 export const Quote: Lists.Quote = list({
   access: allowAll,
