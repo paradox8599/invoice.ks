@@ -1,8 +1,9 @@
+import { Lists } from "../admin/helpers/types";
 import { list } from "@keystone-6/core";
 import { allowAll } from "@keystone-6/core/access";
 import { text, relationship } from "@keystone-6/core/fields";
 
-import type { Lists } from ".keystone/types";
+import { createdAtField, updatedAtField } from "../admin/helpers/fields";
 
 export const ServiceType: Lists.ServiceType = list({
   access: allowAll,
@@ -21,7 +22,7 @@ export const ServiceType: Lists.ServiceType = list({
   },
   fields: {
     name: text({ validation: { isRequired: true } }),
-    description: text({ validation: { isRequired: true } }),
+    description: text({}),
     services: relationship({
       ref: "Service.type",
       many: true,

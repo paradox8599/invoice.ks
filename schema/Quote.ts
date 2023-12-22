@@ -1,3 +1,4 @@
+import { Lists } from "../admin/helpers/types";
 import { graphql, list } from "@keystone-6/core";
 import { allowAll } from "@keystone-6/core/access";
 import {
@@ -8,10 +9,9 @@ import {
   relationship,
 } from "@keystone-6/core/fields";
 
-import type { Lists } from ".keystone/types";
-
 import { Calc } from "../admin/helpers/money";
 import { validateClient } from "../admin/helpers/hooks";
+import { createdAtField, updatedAtField } from "../admin/helpers/fields";
 
 export const Quote: Lists.Quote = list({
   access: allowAll,
@@ -116,20 +116,8 @@ export const Quote: Lists.Quote = list({
         itemView: { fieldPosition: "sidebar" },
       },
     }),
-    createdAt: timestamp({
-      defaultValue: { kind: "now" },
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-      },
-    }),
-    updatedAt: timestamp({
-      defaultValue: { kind: "now" },
-      db: { updatedAt: true },
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-      },
-    }),
+
+    createdAt: createdAtField(),
+    updatedAt: updatedAtField(),
   },
 });

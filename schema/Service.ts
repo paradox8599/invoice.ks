@@ -1,32 +1,39 @@
+import { Lists } from "../admin/helpers/types";
 import { graphql, list } from "@keystone-6/core";
 import { allowAll } from "@keystone-6/core/access";
 import { virtual, text, decimal, relationship } from "@keystone-6/core/fields";
 import { document } from "@keystone-6/fields-document";
 import _ from "lodash";
 
-import type { Lists } from ".keystone/types";
-
 import { decimalToDinero, Calc } from "../admin/helpers/money";
+import { createdAtField, updatedAtField } from "../admin/helpers/fields";
 
 export const Service: Lists.Service = list({
   access: allowAll,
+  ui: {
+    listView: {
+      initialColumns: ["name", "unitPrice", "qty", "price", "gst", "total"],
+      initialSort: {
+        field: "createdAt",
+        direction: "DESC",
+      },
+    },
+  },
   hooks: {
-    async validateDelete({ item, context, operation, addValidationError }) {
-      if (operation === "delete") {
-        const refs_quote = await context.query.Quote.count({
-          where: { services: { some: { id: { equals: item.id } } } },
-        });
-        const refs_contract = await context.query.Contract.count({
-          where: { services: { some: { id: { equals: item.id } } } },
-        });
-        const refs_invoice = await context.query.Invoice.count({
-          where: { services: { some: { id: { equals: item.id } } } },
-        });
-        refs_quote + refs_contract + refs_invoice > 0 &&
-          addValidationError(
-            "Cannot delete this service, it is still referenced by other items."
-          );
-      }
+    async validateDelete({ item, context, addValidationError }) {
+      const refs_quote = await context.query.Quote.count({
+        where: { services: { some: { id: { equals: item.id } } } },
+      });
+      const refs_contract = await context.query.Contract.count({
+        where: { services: { some: { id: { equals: item.id } } } },
+      });
+      const refs_invoice = await context.query.Invoice.count({
+        where: { services: { some: { id: { equals: item.id } } } },
+      });
+      refs_quote + refs_contract + refs_invoice > 0 &&
+        addValidationError(
+          "Cannot delete this service, it is still referenced by other items."
+        );
     },
   },
   fields: {
@@ -45,7 +52,13 @@ export const Service: Lists.Service = list({
         },
       }),
     }),
-    note: text({ ui: { itemView: { fieldPosition: "sidebar" } } }),
+    note: text({
+      ui: {
+        description:
+          "No need to include type here, type will be automatically displayed in name",
+        itemView: { fieldPosition: "sidebar" },
+      },
+    }),
     details: document({
       formatting: true,
       dividers: true,
@@ -134,5 +147,8 @@ export const Service: Lists.Service = list({
         itemView: { fieldMode: "read" },
       },
     }),
+
+    createdAt: createdAtField(),
+    updatedAt: updatedAtField(),
   },
 });

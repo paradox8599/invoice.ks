@@ -6,6 +6,7 @@ import { Invoice } from "./Invoice";
 import { Quote } from "./Quote";
 import { Service } from "./Service";
 import { ServiceType } from "./ServiceType";
+import { BusinessNumberType } from "./BusinessNumberType";
 
 export const lists: Lists = {
   User,
@@ -15,4 +16,5 @@ export const lists: Lists = {
   Invoice,
   Service,
   ServiceType,
+  BusinessNumberType,
 };
