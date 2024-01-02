@@ -3,8 +3,6 @@ import { list } from "@keystone-6/core";
 import { allowAll } from "@keystone-6/core/access";
 import { text, relationship } from "@keystone-6/core/fields";
 
-import { createdAtField, updatedAtField } from "../admin/helpers/fields";
-
 export const ServiceType: Lists.ServiceType = list({
   access: allowAll,
   hooks: {

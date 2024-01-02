@@ -10,11 +10,11 @@ import { BusinessNumberType } from "./BusinessNumberType";
 
 export const lists: Lists = {
   User,
+  BusinessNumberType,
+  ServiceType,
+  Service,
   Client,
   Quote,
   Contract,
   Invoice,
-  Service,
-  ServiceType,
-  BusinessNumberType,
 };
